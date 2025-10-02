@@ -10,7 +10,7 @@ dotenv.config();
 
 // 3. Express 앱을 생성하고 기본 설정을 합니다.
 const app = express();
-const port = 3000; // 서버는 3000번 포트에서 실행됩니다.
+const port = process.env.PORT || 3000; // 서버는 3000번 포트에서 실행됩니다.
 
 app.use(cors()); // CORS 설정: 모든 출처의 요청을 허용합니다. (개발 편의를 위해)
 app.use(express.json()); // 클라이언트가 보낸 JSON 데이터를 파싱하기 위한 설정입니다.
