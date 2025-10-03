@@ -27,10 +27,15 @@ app.post('/api/fortune', async (req: Request, res: Response) => {
     
 
     // Gemini 모델을 선택합니다.
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.5-pro',
+      generationConfig: {
+        responseMimeType: "application/json",
+      },
+    });
 
     // Gemini에게 보낼 프롬프트를 만듭니다.
-    const prompt = `오늘의 운세를 간략하게 설명해줘 간단한 제목과 함께 2문장 이하로`;
+    const prompt = `오늘의 운세를 JSON 형식으로 생성해줘. JSON 객체는 'header'(운세 제목)와 'body'(운세 내용, 2문장 이하) 키를 포함해야 해. 다른 설명 없이 JSON 객체만 반환해줘.`;
 
     // Gemini API를 호출하여 텍스트를 생성합니다.
     const result = await model.generateContent(prompt);
@@ -38,7 +43,7 @@ app.post('/api/fortune', async (req: Request, res: Response) => {
     const fortuneText = response.text();
 
     // 생성된 운세 결과를 프론트엔드로 보냅니다.
-    res.json({ fortune: fortuneText });
+    res.json(JSON.parse(fortuneText));
     
   } catch (error) {
     console.error('Gemini API 호출 중 오류 발생:', error);
