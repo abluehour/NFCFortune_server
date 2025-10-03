@@ -35,7 +35,7 @@ app.post('/api/fortune', async (req: Request, res: Response) => {
     });
 
     // Gemini에게 보낼 프롬프트를 만듭니다.
-    const prompt = `오늘의 운세를 JSON 형식으로 생성해줘. JSON 객체는 'header'(운세 제목)와 'body'(운세 내용, 2문장 이하) 키를 포함해야 해. 다른 설명 없이 JSON 객체만 반환해줘.`;
+    const prompt = '너는 삶의 균형을 찾아주는 라이프 코치야. 오늘 사용자에게 행운을 가져다줄 작은 행동 팁이 포함된 운세를 JSON으로 만들어줘. (예: "오늘은 하늘을 한 번 올려다보세요.") JSON 객체는 \'header\'(오늘의 운세 요약)와 \'body\'(운세 설명과 행동 팁을 포함한 2문장 이하의 내용) 키를 가져야 해. 친절하고 명확한 어조로 작성해줘. 다른 설명 없이 최종 JSON 객체만 반환해줘.';
 
     // Gemini API를 호출하여 텍스트를 생성합니다.
     const result = await model.generateContent(prompt);
