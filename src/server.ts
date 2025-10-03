@@ -28,7 +28,7 @@ app.post('/api/fortune', async (req: Request, res: Response) => {
 
     // Gemini 모델을 선택합니다.
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-pro',
+      model: 'gemini-2.5-flash',
       generationConfig: {
         responseMimeType: "application/json",
       },
